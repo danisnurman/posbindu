@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score
 ###
 # streamlit.set_page_config(layout="wide")
 streamlit.title("Deteksi Dini Status Risiko Diabetes")
+streamlit.title("Posbindu Masjid Al Amin Mejing Kidul")
 ###
 
 ## Title
@@ -154,7 +155,7 @@ if(bmi<100):
 else:
     streamlit.write("IMT anda:")
 #
-streamlit.write("Status IMT: ", bmiStatus)
+streamlit.write("Kategori IMT: ", bmiStatus)
 # streamlit.write("BMI category: ", bmiCat)
 ## End of BMI
 
