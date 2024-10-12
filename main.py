@@ -77,14 +77,14 @@ streamlit.write("1. Bagaimana kondisi kesehatan anda secara umum")
 generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=14)
 ## General Health Scale
 
-streamlit.write("==================")
+streamlit.write("")
 
 ## High Blood Pressure
 streamlit.write("2. Apakah anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
 bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=1)
 ## End of High Blood Pressure
 
-streamlit.write("==================")
+streamlit.write("")
 
 ## High Chol
 streamlit.write("3. Mohon masukkan hasil pemeriksaan kolesterol total.")
@@ -106,7 +106,7 @@ streamlit.write("Status kolesterol: ", cholStatus)
 # streamlit.write("Kategori kolesterol: ", cholCat)
 ## End of High Chol
 
-streamlit.write("==================")
+streamlit.write("")
 
 # ## Cholesterol Check
 # streamlit.write("3. Cholesterol Check in 5 years?")
@@ -157,7 +157,7 @@ streamlit.write("Status IMT: ", bmiStatus)
 # streamlit.write("BMI category: ", bmiCat)
 ## End of BMI
 
-streamlit.write("==================")
+streamlit.write("")
 
 # ## Smoker
 # streamlit.write("5. Smoke?")
@@ -241,7 +241,7 @@ streamlit.write("5. Apakah anda mengalami kesulitan berjalan atau menaiki tangga
 difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=17)
 ## End of Difficulty Walk
 
-streamlit.write("==================")
+streamlit.write("")
 
 # ## Sex
 # streamlit.write("18. Sex")
@@ -305,7 +305,7 @@ ageStatus, ageCat = checkAgeCategory(age)
 streamlit.write("Kategori Usia: ", ageCat)
 ## End of Age Categorization
 
-streamlit.write("==================")
+streamlit.write("")
 
 # ## Education
 # streamlit.write("20. Education")
@@ -329,7 +329,7 @@ streamlit.write("==================")
 #                  heavyAlcohol, anyHealthCare, noDocBcsCost, generalHealth, mentalHealth,
 #                  physicalHealth, difficultyWalk, sex, ageCat, education, income]]
 dataFromUser = [[generalHealth, ageCat, bmiCat, bloodPressure, cholCat, difficultyWalk]]
-streamlit.write(dataFromUser)
+# streamlit.write(dataFromUser)
 
 ## Predict New Data
 # new_data = [[bpVal, cholVal, bmiVal, smokerVal, physActVal]]
