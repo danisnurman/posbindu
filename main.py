@@ -73,7 +73,7 @@ streamlit.write("")
 ### GET VARIABLE INPUT FROM USER
 
 ## General Health Scale
-streamlit.write("1. Bagaimana kondisi kesehatan anda secara umum")
+streamlit.write("1. Bagaimana kondisi kesehatan anda secara umum?")
 generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=14)
 ## General Health Scale
 
@@ -87,7 +87,7 @@ bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_valu
 streamlit.write("")
 
 ## High Chol
-streamlit.write("3. Mohon masukkan hasil pemeriksaan kolesterol total.")
+streamlit.write("3. Mohon masukkan hasil pemeriksaan kolesterol total!")
 cholesterol = streamlit.number_input(label="Jawaban (skala 50-500)", min_value=50, max_value=500, key=2)
 
 # Chol Status Function
@@ -117,6 +117,7 @@ streamlit.write("")
 
 ## BMI
 # User Input
+streamlit.write("4. Indeks Massa Tubuh (IMT)")
 weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=41)
 height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=42)
 bmi = weight / ((height/100)*(height/100))
@@ -149,9 +150,9 @@ def checkBMIStatus(bmi):
 bmiStatus, bmiCat = checkBMIStatus(bmi)
 # Dont show BMI if above 100
 if(bmi<100):
-    streamlit.write("4. Indeks Massa Tubuh (IMT): ", bmi)
+    streamlit.write("IMT anda: ", bmi)
 else:
-    streamlit.write("4. Indeks Massa Tubuh (IMT):")
+    streamlit.write("IMT anda:")
 #
 streamlit.write("Status IMT: ", bmiStatus)
 # streamlit.write("BMI category: ", bmiCat)
