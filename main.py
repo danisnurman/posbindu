@@ -7,12 +7,12 @@ from sklearn.metrics import accuracy_score
 
 ###
 # streamlit.set_page_config(layout="wide")
-streamlit.title('Deteksi Dini')
-streamlit.title('Status Risiko Diabetes')
+streamlit.title('Deteksi Dini Status Risiko Diabetes')
+streamlit.title('')
 ###
 
 ## Title
-streamlit.write("Mohon isi data sesuai dengan fakta.")
+streamlit.write("Mohon isi data sesuai dengan petunjuk yang disediakan.")
 ##
 
 ### BUILD MODEL WITH "SIX (6)" INDEPENDENT VARIABLE BASED ON mRMR METHOD
@@ -65,7 +65,9 @@ y_pred = clf.predict(X_test)
 ## Calculate the accuracy score
 # streamlit.write("Accuracy: ", accuracy_score(y_test, y_pred))
 acc_score = round((accuracy_score(y_test, y_pred)*100),2)
-streamlit.write("Accuracy : ", acc_score, "%")
+streamlit.write("")
+streamlit.write("Model Accuracy : ", acc_score, "%")
+streamlit.write("")
 # streamlit.write(classification_report(y_test, y_pred))
 ##
 
