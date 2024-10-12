@@ -7,8 +7,7 @@ from sklearn.metrics import accuracy_score
 
 ###
 # streamlit.set_page_config(layout="wide")
-streamlit.title('Deteksi Dini Status Risiko Diabetes')
-streamlit.title('')
+streamlit.title("Deteksi Dini Status Risiko Diabetes")
 ###
 
 ## Title
