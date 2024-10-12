@@ -1,87 +1,93 @@
 import streamlit
 import pandas
-import numpy
-# import mitosheet as mt
-# from mitosheet.streamlit.v1 import spreadsheet
-# import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-# from sklearn import metrics
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score
 
 ###
 # streamlit.set_page_config(layout="wide")
-streamlit.title('Diabetes Health Indicators')
-# CSV_URL = '/workspaces/psbnd2/diabetes_binary_5050split_health_indicators_BRFSS2015.csv'
-# new_dfs, code = spreadsheet(CSV_URL)
-# streamlit.write(new_dfs)
-# streamlit.code(code)
+streamlit.title('Deteksi Dini')
+streamlit.title('Status Risiko Diabetes')
 ###
 
 ## Title
-streamlit.write("Hi! Please fill the form below.")
+streamlit.write("Mohon isi data sesuai dengan fakta.")
 ##
 
-### BUILD MODEL WITH "SIX (6)" INDEPENDENT VARIABLE
+### BUILD MODEL WITH "SIX (6)" INDEPENDENT VARIABLE BASED ON mRMR METHOD
 ## Read CSV & Define Feature
 df = pandas.read_csv('https://raw.githubusercontent.com/danisnurman/psbnd2/main/diabetes_binary_5050split_health_indicators_BRFSS2015.csv')
 # streamlit.dataframe(df, use_container_width=True)
-df.dropna(inplace=True)
-df.isnull().sum()
 #
+
+## Feature Cols
+mrmr_features = ['Diabetes_binary', 'GenHlth', 'Age', 'BMI', 'HighBP', 'HighChol', 'DiffWalk']
+df = df[mrmr_features]
+# streamlit.write(mrmr_features)
+##
+
 ## Data Discretization & Transformation
 df.loc[df['BMI'] < 18.5, 'BMI'] = 1
 df.loc[(df['BMI'] >=18.5) & (df['BMI'] <= 24.9), 'BMI'] = 2
 df.loc[(df['BMI'] >=25.0) & (df['BMI'] <= 29.9), 'BMI'] = 3
 df.loc[(df['BMI'] >=30.0) & (df['BMI'] <= 34.9), 'BMI'] = 4
 df.loc[(df['BMI'] >=35.0) & (df['BMI'] <= 100.0), 'BMI'] = 5
-# feature_cols = ['Diabetes_binary', 'HighBP', 'HighChol', 'CholCheck', 'BMI', 'Smoker',
-#                 'Stroke', 'HeartDiseaseorAttack', 'PhysActivity', 'Fruits', 'Veggies',
-#                 'HvyAlcoholConsump', 'AnyHealthcare', 'NoDocbcCost', 'GenHlth', 'MentHlth',
-#                 'PhysHlth', 'DiffWalk', 'Sex', 'Age', 'Education', 'Income']
-mrmr_features = ['Diabetes_binary', 'GenHlth', 'Age', 'BMI', 'HighBP', 'HighChol', 'DiffWalk']
-df = df[mrmr_features]
-streamlit.write(mrmr_features)
 
 ## Split the data
 X = df.drop(columns='Diabetes_binary')
 y = df.Diabetes_binary
+
+## Predictions
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 ## Classifier
 clf = DecisionTreeClassifier()
+
+## Perform training
 clf = clf.fit(X_train, y_train)
+
+## Predict result from dataset
 y_pred = clf.predict(X_test)
 
-dfConcat = X_test.copy()
-dfConcat['y_testdata'] = y_test
-dfConcat.reset_index(inplace=True)
-dfConcat['y_predict'] = y_pred
-streamlit.write(dfConcat)
+## Concatenate actual data & predicted data
+# dfConcat = X_test.copy()
+# dfConcat['y_testdata'] = y_test
+# dfConcat.reset_index(inplace=True)
+# dfConcat['y_predict'] = y_pred
+# streamlit.write(dfConcat)
 
 # Classifier entropy criterion
 # clf = DecisionTreeClassifier(criterion="entropy", splitter="best")
 # clf = clf.fit(X_train, y_train)
 # y_pred = clf.predict(X_test)
 
-## Evaluate the model
-streamlit.write("Accuracy: ", accuracy_score(y_test, y_pred))
+## Calculate the accuracy score
+# streamlit.write("Accuracy: ", accuracy_score(y_test, y_pred))
+acc_score = round((accuracy_score(y_test, y_pred)*100),2)
+streamlit.write("Accuracy : ", acc_score, "%")
 # streamlit.write(classification_report(y_test, y_pred))
 ##
 
 ### GET VARIABLE INPUT FROM USER
 
+## General Health Scale
+streamlit.write("1. Bagaimana kondisi kesehatan anda secara umum")
+generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=14)
+## General Health Scale
+
+streamlit.write("==================")
+
 ## High Blood Pressure
-streamlit.write("1. High BP?")
-bloodPressure = streamlit.number_input(label="Please enter (0=no, 1=yes)", min_value=0, max_value=1, key=1)
+streamlit.write("2. Apakah anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
+bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=1)
 ## End of High Blood Pressure
 
 streamlit.write("==================")
 
 ## High Chol
-streamlit.write("2. Cholesterol Total")
-cholesterol = streamlit.number_input(label="Please enter (scale 50-500)", min_value=50, max_value=500, key=2)
+streamlit.write("3. Mohon masukkan hasil pemeriksaan kolesterol total.")
+cholesterol = streamlit.number_input(label="Jawaban (skala 50-500)", min_value=50, max_value=500, key=2)
 
 # Chol Status Function
 def checkCholStatus(cholesterol):
@@ -89,29 +95,29 @@ def checkCholStatus(cholesterol):
         cholStatus = "Normal"
         cholCat = 0
     else:
-        cholStatus = "High"
+        cholStatus = "Tinggi"
         cholCat = 1
     return cholStatus, cholCat
 #
 
 cholStatus, cholCat = checkCholStatus(cholesterol)
-streamlit.write("Cholesterol status: ", cholStatus)
-streamlit.write("Cholesterol category: ", cholCat)
+streamlit.write("Status kolesterol: ", cholStatus)
+# streamlit.write("Kategori kolesterol: ", cholCat)
 ## End of High Chol
 
 streamlit.write("==================")
 
 # ## Cholesterol Check
 # streamlit.write("3. Cholesterol Check in 5 years?")
-# cholCheck = streamlit.number_input(label="Please enter (0=no, 1=yes)", min_value=0, max_value=1, key=3)
+# cholCheck = streamlit.number_input(label="Please enter (0=tidak, 1=ya)", min_value=0, max_value=1, key=3)
 # ## End of Cholesterol Check
 
 # streamlit.write("==================")
 
 ## BMI
 # User Input
-weight = streamlit.number_input(label="Body Weight (in kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=41)
-height = streamlit.number_input(label="Body Height (in cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=42)
+weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=41)
+height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=42)
 bmi = weight / ((height/100)*(height/100))
 bmi = round(bmi, 1)
 #
@@ -119,19 +125,19 @@ bmi = round(bmi, 1)
 # BMI Status Function
 def checkBMIStatus(bmi):
     if(bmi>=10.0 and bmi<18.5):
-        bmiStatus = "Underweight"
+        bmiStatus = "Berat badan kurang"
         bmiCat = 1
     elif(bmi>=18.5 and bmi<=24.9):
         bmiStatus = "Normal"
         bmiCat = 2
     elif(bmi>=25.0 and bmi<=29.9):
-        bmiStatus = "Overweight"
+        bmiStatus = "Kegemukan"
         bmiCat = 3
     elif(bmi>=30.0 and bmi<=34.9):
-        bmiStatus = "Obese"
+        bmiStatus = "Obesitas"
         bmiCat = 4
     elif(bmi>=35.0 and bmi<=100.0):
-        bmiStatus = "Extremely Obese"
+        bmiStatus = "Obesitas berat"
         bmiCat = 5
     else:
         bmiStatus = ""
@@ -142,85 +148,78 @@ def checkBMIStatus(bmi):
 bmiStatus, bmiCat = checkBMIStatus(bmi)
 # Dont show BMI if above 100
 if(bmi<100):
-    streamlit.write("4. Body Mass Index (BMI): ", bmi)
+    streamlit.write("4. Indeks Massa Tubuh (IMT): ", bmi)
 else:
-    streamlit.write("4. Body Mass Index (BMI):")
+    streamlit.write("4. Indeks Massa Tubuh (IMT):")
 #
-streamlit.write("BMI status: ", bmiStatus)
-streamlit.write("BMI category: ", bmiCat)
+streamlit.write("Status IMT: ", bmiStatus)
+# streamlit.write("BMI category: ", bmiCat)
 ## End of BMI
 
 streamlit.write("==================")
 
 # ## Smoker
 # streamlit.write("5. Smoke?")
-# smoker = streamlit.number_input(label="Have you smoked at least 100 cigarettes in your entire life? [Note: 5 packs = 100 cigarettes] (0=no, 1=yes)", min_value=0, max_value=1, key=5)
+# smoker = streamlit.number_input(label="Have you smoked at least 100 cigarettes in your entire life? [Note: 5 packs = 100 cigarettes] (0=tidak, 1=ya)", min_value=0, max_value=1, key=5)
 # ## End of Smoker
 
 # streamlit.write("==================")
 
 # ## Stroke
 # streamlit.write("6. Stroke?")
-# stroke = streamlit.number_input(label="(Ever told) you had a stroke. (0=no, 1=yes)", min_value=0, max_value=1, key=6)
+# stroke = streamlit.number_input(label="(Ever told) you had a stroke. (0=tidak, 1=ya)", min_value=0, max_value=1, key=6)
 # ## End of Stroke
 
 # streamlit.write("==================")
 
 # ## Heart Disease
 # streamlit.write("7. Heart Disease?")
-# heartDisease = streamlit.number_input(label="Coronary heart disease (CHD) or myocardial infarction (MI) (0=no, 1=yes)", min_value=0, max_value=1, key=7)
+# heartDisease = streamlit.number_input(label="Coronary heart disease (CHD) or myocardial infarction (MI) (0=tidak, 1=ya)", min_value=0, max_value=1, key=7)
 # ## End of Heart Disease
 
 # streamlit.write("==================")
 
 # ## Physical Activity
 # streamlit.write("8. Physical Activity?")
-# physicalActivity = streamlit.number_input(label="Physical activity in past 30 days - not including job (0=no, 1=yes)", min_value=0, max_value=1, key=8)
+# physicalActivity = streamlit.number_input(label="Physical activity in past 30 days - not including job (0=tidak, 1=ya)", min_value=0, max_value=1, key=8)
 # ## End of Physical Activity
 
 # streamlit.write("==================")
 
 # ## Fruits
 # streamlit.write("9. Fruits?")
-# fruits = streamlit.number_input(label="Consume Fruit 1 or more times per day (0=no, 1=yes)", min_value=0, max_value=1, key=9)
+# fruits = streamlit.number_input(label="Consume Fruit 1 or more times per day (0=tidak, 1=ya)", min_value=0, max_value=1, key=9)
 # ## End of Fruits
 
 # streamlit.write("==================")
 
 # ## Veggies
 # streamlit.write("10. Veggies?")
-# veggies = streamlit.number_input(label="Consume Vegetables 1 or more times per day (0=no, 1=yes)", min_value=0, max_value=1, key=10)
+# veggies = streamlit.number_input(label="Consume Vegetables 1 or more times per day (0=tidak, 1=ya)", min_value=0, max_value=1, key=10)
 # ## End of Veggies
 
 # streamlit.write("==================")
 
 # ## Heavy Alcohol Consumption
 # streamlit.write("11. Heavy Alcohol Consumption")
-# heavyAlcohol = streamlit.number_input(label="(adult men >=14 drinks per week and adult women>=7 drinks per week) (0=no, 1=yes)", min_value=0, max_value=1, key=11)
+# heavyAlcohol = streamlit.number_input(label="(adult men >=14 drinks per week and adult women>=7 drinks per week) (0=tidak, 1=ya)", min_value=0, max_value=1, key=11)
 # ## End of Heavy Alcohol Consumption
 
 # streamlit.write("==================")
 
 # ## Any Health Care
 # streamlit.write("12. Any Health Care")
-# anyHealthCare = streamlit.number_input(label="Have any kind of health care coverage, including health insurance (0=no, 1=yes)", min_value=0, max_value=1, key=12)
+# anyHealthCare = streamlit.number_input(label="Have any kind of health care coverage, including health insurance (0=tidak, 1=ya)", min_value=0, max_value=1, key=12)
 # ## End of Any Health Care
 
 # streamlit.write("==================")
 
 # ## No Doctor Because of Cost in the Past 12 Months
 # streamlit.write("13. No Doctor because of cost in the past 12 months")
-# noDocBcsCost = streamlit.number_input(label="Please enter (0=no, 1=yes)", min_value=0, max_value=1, key=13)
+# noDocBcsCost = streamlit.number_input(label="Please enter (0=tidak, 1=ya)", min_value=0, max_value=1, key=13)
 # ## No Doctor Because of Cost in the Past 12 Months
 
 # streamlit.write("==================")
-
-## General Health Scale
-streamlit.write("14. General Health Scale")
-generalHealth = streamlit.number_input(label="Would you say that in general your health is (scale: 1 = excellent, 2 = very good, 3 = good, 4 = fair, 5 = poor)", min_value=1, max_value=5, key=14)
-## General Health Scale
-
-streamlit.write("==================")
 
 # ## Mental Health Scale
 # streamlit.write("15. Mental Health Scale")
@@ -237,8 +236,8 @@ streamlit.write("==================")
 # streamlit.write("==================")
 
 ## Difficulty Walk
-streamlit.write("17. Difficulty Walk")
-difficultyWalk = streamlit.number_input(label="Do you have serious difficulty walking or climbing stairs? (0=no, 1=yes)", min_value=0, max_value=1, key=17)
+streamlit.write("5. Apakah anda mengalami kesulitan berjalan atau menaiki tangga")
+difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=17)
 ## End of Difficulty Walk
 
 streamlit.write("==================")
@@ -251,8 +250,8 @@ streamlit.write("==================")
 # streamlit.write("==================")
 
 ## Age Categorization
-streamlit.write("19. Age")
-age = streamlit.number_input(label="Please enter (scale 18-120)", min_value=18, max_value=120, step=1, key=19)
+streamlit.write("6. Usia Anda")
+age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=19)
 
 # Age Categorization Function
 def checkAgeCategory(age):
@@ -302,7 +301,7 @@ def checkAgeCategory(age):
 #
 
 ageStatus, ageCat = checkAgeCategory(age)
-streamlit.write("Age Category: ", ageCat)
+streamlit.write("Kategori Usia: ", ageCat)
 ## End of Age Categorization
 
 streamlit.write("==================")
@@ -417,7 +416,7 @@ result = clf.predict(dataFromUser)
 
 ## Check Diabetes Risk
 if(result==0):
-    streamlit.write("Diabetes status: Not Risk")
+    streamlit.write("Status Diabetes: Tidak Berisiko.")
 else:
-    streamlit.write("Diabetes status: RISK!")
+    streamlit.write("Status Diabetes: BERISIKO!")
 ###
