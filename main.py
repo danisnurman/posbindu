@@ -162,7 +162,7 @@ streamlit.write("")
 ## BMI
 # User Input
 streamlit.write("5. Apa status Indeks Massa Tubuh (IMT) Anda berdasarkan pemeriksaan oleh petugas Posbindu")
-bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=4)
+bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=5)
 # weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=51)
 # height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=52)
 # bmi = weight / ((height/100)*(height/100))
