@@ -67,8 +67,8 @@ streamlit.write("")
 ### GET VARIABLE INPUT FROM USER
 
 ## Age Categorization
-streamlit.write("1. Usia Anda")
-age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=19)
+streamlit.write("1. Berapa usia Anda?")
+age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=1)
 
 # Age Categorization Function
 def checkAgeCategory(age):
@@ -124,36 +124,36 @@ streamlit.write("Kategori Usia: ", ageCat)
 streamlit.write("")
 
 ## General Health Scale
-streamlit.write("2. Bagaimana kondisi kesehatan anda secara umum?")
-generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=14)
+streamlit.write("2. Bagaimana kondisi kesehatan Anda secara umum?")
+generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=2)
 ## General Health Scale
 
 streamlit.write("")
 
 ## High Blood Pressure
-streamlit.write("3. Apakah anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
-bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=1)
+streamlit.write("3. Apakah Anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
+bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=3)
 ## End of High Blood Pressure
 
 streamlit.write("")
 
 ## High Chol
-streamlit.write("4. Mohon masukkan hasil pemeriksaan kolesterol total!")
-cholesterol = streamlit.number_input(label="Jawaban (skala 50-500)", min_value=50, max_value=500, key=2)
+streamlit.write("4. Apakah Anda dinyatakan mengalami kolesterol tinggi oleh petugas Posbindu?")
+cholCat = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=4)
 
-# Chol Status Function
-def checkCholStatus(cholesterol):
-    if(cholesterol>=50.0 and cholesterol<=200):
-        cholStatus = "Normal"
-        cholCat = 0
-    else:
-        cholStatus = "Tinggi"
-        cholCat = 1
-    return cholStatus, cholCat
-#
+# # Chol Status Function
+# def checkCholStatus(cholesterol):
+#     if(cholesterol>=50.0 and cholesterol<=200):
+#         cholStatus = "Normal"
+#         cholCat = 0
+#     else:
+#         cholStatus = "Tinggi"
+#         cholCat = 1
+#     return cholStatus, cholCat
+# #
 
-cholStatus, cholCat = checkCholStatus(cholesterol)
-streamlit.write("Status kolesterol: ", cholStatus)
+# cholStatus, cholCat = checkCholStatus(cholesterol)
+# streamlit.write("Status kolesterol: ", cholStatus)
 # streamlit.write("Kategori kolesterol: ", cholCat)
 ## End of High Chol
 
@@ -162,8 +162,8 @@ streamlit.write("")
 ## BMI
 # User Input
 streamlit.write("5. Indeks Massa Tubuh (IMT)")
-weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=41)
-height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=42)
+weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=51)
+height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=52)
 bmi = weight / ((height/100)*(height/100))
 bmi = round(bmi, 1)
 #
@@ -206,7 +206,7 @@ streamlit.write("")
 
 ## Difficulty Walk
 streamlit.write("6. Apakah anda mengalami kesulitan berjalan atau menaiki tangga")
-difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=17)
+difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=6)
 ## End of Difficulty Walk
 
 streamlit.write("")
