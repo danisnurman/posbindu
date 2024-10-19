@@ -161,43 +161,62 @@ streamlit.write("")
 
 ## BMI
 # User Input
-streamlit.write("5. Indeks Massa Tubuh (IMT)")
-weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=51)
-height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=52)
-bmi = weight / ((height/100)*(height/100))
-bmi = round(bmi, 1)
-#
+streamlit.write("5. Apa status Indeks Massa Tubuh (IMT) Anda berdasarkan pemeriksaan oleh petugas Posbindu")
+bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=4)
+# weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=51)
+# height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=52)
+# bmi = weight / ((height/100)*(height/100))
+# bmi = round(bmi, 1)
+# #
 
-# BMI Status Function
+# # BMI Status Function
+# def checkBMIStatus(bmi):
+#     if(bmi>=10.0 and bmi<18.5):
+#         bmiStatus = "Berat badan kurang"
+#         bmiCat = 1
+#     elif(bmi>=18.5 and bmi<=24.9):
+#         bmiStatus = "Normal"
+#         bmiCat = 2
+#     elif(bmi>=25.0 and bmi<=29.9):
+#         bmiStatus = "Kegemukan"
+#         bmiCat = 3
+#     elif(bmi>=30.0 and bmi<=34.9):
+#         bmiStatus = "Obesitas"
+#         bmiCat = 4
+#     elif(bmi>=35.0 and bmi<=100.0):
+#         bmiStatus = "Obesitas berat"
+#         bmiCat = 5
+#     else:
+#         bmiStatus = ""
+#         bmiCat = 0
+#     return bmiStatus, bmiCat
+# #
+# bmiStatus, bmiCat = checkBMIStatus(bmi)
+# # Dont show BMI if above 100
+# if(bmi<100):
+#     streamlit.write("IMT anda: ", bmi)
+# else:
+#     streamlit.write("IMT anda:")
+# #
+
 def checkBMIStatus(bmi):
-    if(bmi>=10.0 and bmi<18.5):
+    if(bmi==1):
         bmiStatus = "Berat badan kurang"
         bmiCat = 1
-    elif(bmi>=18.5 and bmi<=24.9):
+    elif(bmi==2):
         bmiStatus = "Normal"
         bmiCat = 2
-    elif(bmi>=25.0 and bmi<=29.9):
+    elif(bmi==3):
         bmiStatus = "Kegemukan"
         bmiCat = 3
-    elif(bmi>=30.0 and bmi<=34.9):
+    elif(bmi==4):
         bmiStatus = "Obesitas"
         bmiCat = 4
-    elif(bmi>=35.0 and bmi<=100.0):
-        bmiStatus = "Obesitas berat"
-        bmiCat = 5
     else:
         bmiStatus = ""
         bmiCat = 0
     return bmiStatus, bmiCat
-#
-
-bmiStatus, bmiCat = checkBMIStatus(bmi)
-# Dont show BMI if above 100
-if(bmi<100):
-    streamlit.write("IMT anda: ", bmi)
-else:
-    streamlit.write("IMT anda:")
-#
+bmiStatus, bmiCat = checkBMIStatus(bmiCategory)
 streamlit.write("Kategori IMT: ", bmiStatus)
 # streamlit.write("BMI category: ", bmiCat)
 ## End of BMI
