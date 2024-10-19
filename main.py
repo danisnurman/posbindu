@@ -22,7 +22,7 @@ df = pandas.read_csv('https://raw.githubusercontent.com/danisnurman/psbnd2/main/
 #
 
 ## Feature Cols
-mrmr_features = ['Diabetes_binary', 'GenHlth', 'Age', 'BMI', 'HighBP', 'HighChol', 'DiffWalk']
+mrmr_features = ['Diabetes_binary', 'Age', 'GenHlth', 'HighBP', 'HighChol', 'BMI', 'DiffWalk']
 df = df[mrmr_features]
 # streamlit.write(mrmr_features)
 ##
@@ -73,22 +73,79 @@ streamlit.write("")
 
 ### GET VARIABLE INPUT FROM USER
 
+## Age Categorization
+streamlit.write("1. Usia Anda")
+age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=19)
+
+# Age Categorization Function
+def checkAgeCategory(age):
+    if(age>=18 and age<=24):
+        ageStatus = "1"
+        ageCat = 1
+    elif(age>=25 and age<=29):
+        ageStatus = "2"
+        ageCat = 2
+    elif(age>=30 and age<=34):
+        ageStatus = "3"
+        ageCat = 3
+    elif(age>=35 and age<=39):
+        ageStatus = "4"
+        ageCat = 4
+    elif(age>=40 and age<=44):
+        ageStatus = "5"
+        ageCat = 5
+    elif(age>=45 and age<=49):
+        ageStatus = "6"
+        ageCat = 6
+    elif(age>=50 and age<=54):
+        ageStatus = "7"
+        ageCat = 7
+    elif(age>=55 and age<=59):
+        ageStatus = "8"
+        ageCat = 8
+    elif(age>=60 and age<=64):
+        ageStatus = "9"
+        ageCat = 9
+    elif(age>=65 and age<=69):
+        ageStatus = "10"
+        ageCat = 10
+    elif(age>=70 and age<=74):
+        ageStatus = "11"
+        ageCat = 11
+    elif(age>=75 and age<=79):
+        ageStatus = "12"
+        ageCat = 12
+    elif(age>=80 and age<=120):
+        ageStatus = "13"
+        ageCat = 13
+    else:
+        ageStatus = ""
+        ageCat = 0
+    return ageStatus, ageCat
+#
+
+ageStatus, ageCat = checkAgeCategory(age)
+streamlit.write("Kategori Usia: ", ageCat)
+## End of Age Categorization
+
+streamlit.write("")
+
 ## General Health Scale
-streamlit.write("1. Bagaimana kondisi kesehatan anda secara umum?")
+streamlit.write("2. Bagaimana kondisi kesehatan anda secara umum?")
 generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=14)
 ## General Health Scale
 
 streamlit.write("")
 
 ## High Blood Pressure
-streamlit.write("2. Apakah anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
+streamlit.write("3. Apakah anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
 bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=1)
 ## End of High Blood Pressure
 
 streamlit.write("")
 
 ## High Chol
-streamlit.write("3. Mohon masukkan hasil pemeriksaan kolesterol total!")
+streamlit.write("4. Mohon masukkan hasil pemeriksaan kolesterol total!")
 cholesterol = streamlit.number_input(label="Jawaban (skala 50-500)", min_value=50, max_value=500, key=2)
 
 # Chol Status Function
@@ -118,7 +175,7 @@ streamlit.write("")
 
 ## BMI
 # User Input
-streamlit.write("4. Indeks Massa Tubuh (IMT)")
+streamlit.write("5. Indeks Massa Tubuh (IMT)")
 weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=41)
 height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=42)
 bmi = weight / ((height/100)*(height/100))
@@ -239,7 +296,7 @@ streamlit.write("")
 # streamlit.write("==================")
 
 ## Difficulty Walk
-streamlit.write("5. Apakah anda mengalami kesulitan berjalan atau menaiki tangga")
+streamlit.write("6. Apakah anda mengalami kesulitan berjalan atau menaiki tangga")
 difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=17)
 ## End of Difficulty Walk
 
@@ -251,63 +308,6 @@ streamlit.write("")
 # ## End of Sex
 
 # streamlit.write("==================")
-
-## Age Categorization
-streamlit.write("6. Usia Anda")
-age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=19)
-
-# Age Categorization Function
-def checkAgeCategory(age):
-    if(age>=18 and age<=24):
-        ageStatus = "1"
-        ageCat = 1
-    elif(age>=25 and age<=29):
-        ageStatus = "2"
-        ageCat = 2
-    elif(age>=30 and age<=34):
-        ageStatus = "3"
-        ageCat = 3
-    elif(age>=35 and age<=39):
-        ageStatus = "4"
-        ageCat = 4
-    elif(age>=40 and age<=44):
-        ageStatus = "5"
-        ageCat = 5
-    elif(age>=45 and age<=49):
-        ageStatus = "6"
-        ageCat = 6
-    elif(age>=50 and age<=54):
-        ageStatus = "7"
-        ageCat = 7
-    elif(age>=55 and age<=59):
-        ageStatus = "8"
-        ageCat = 8
-    elif(age>=60 and age<=64):
-        ageStatus = "9"
-        ageCat = 9
-    elif(age>=65 and age<=69):
-        ageStatus = "10"
-        ageCat = 10
-    elif(age>=70 and age<=74):
-        ageStatus = "11"
-        ageCat = 11
-    elif(age>=75 and age<=79):
-        ageStatus = "12"
-        ageCat = 12
-    elif(age>=80 and age<=120):
-        ageStatus = "13"
-        ageCat = 13
-    else:
-        ageStatus = ""
-        ageCat = 0
-    return ageStatus, ageCat
-#
-
-ageStatus, ageCat = checkAgeCategory(age)
-streamlit.write("Kategori Usia: ", ageCat)
-## End of Age Categorization
-
-streamlit.write("")
 
 # ## Education
 # streamlit.write("20. Education")
@@ -330,7 +330,7 @@ streamlit.write("")
 #                  stroke, heartDisease, physicalActivity, fruits, veggies,
 #                  heavyAlcohol, anyHealthCare, noDocBcsCost, generalHealth, mentalHealth,
 #                  physicalHealth, difficultyWalk, sex, ageCat, education, income]]
-dataFromUser = [[generalHealth, ageCat, bmiCat, bloodPressure, cholCat, difficultyWalk]]
+dataFromUser = [[ageCat, generalHealth, bloodPressure, cholCat, bmiCat, difficultyWalk]]
 # streamlit.write(dataFromUser)
 
 ## Predict New Data
