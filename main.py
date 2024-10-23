@@ -24,15 +24,20 @@ df = pandas.read_csv('https://raw.githubusercontent.com/danisnurman/psbnd2/main/
 ## Feature Cols
 mrmr_features = ['Diabetes_binary', 'Age', 'GenHlth', 'HighBP', 'HighChol', 'BMI', 'DiffWalk']
 df = df[mrmr_features]
-# streamlit.write(mrmr_features)
 ##
 
 ## Data Discretization & Transformation
-df.loc[df['BMI'] < 18.5, 'BMI'] = 1
-df.loc[(df['BMI'] >=18.5) & (df['BMI'] <= 24.9), 'BMI'] = 2
-df.loc[(df['BMI'] >=25.0) & (df['BMI'] <= 29.9), 'BMI'] = 3
-df.loc[(df['BMI'] >=30.0) & (df['BMI'] <= 34.9), 'BMI'] = 4
-df.loc[(df['BMI'] >=35.0) & (df['BMI'] <= 100.0), 'BMI'] = 5
+for index in range(df.shape[0]):
+    if df.loc[index,'BMI'] < 18.5:
+        df.loc[index,'BMI'] = 1
+    elif (df.loc[index,'BMI'] >= 18.5) & (df.loc[index,'BMI'] <= 24.9):
+        df.loc[index,'BMI'] = 2
+    elif (df.loc[index,'BMI'] >= 25.0) & (df.loc[index,'BMI'] <= 29.9):
+        df.loc[index,'BMI'] = 3
+    elif (df.loc[index,'BMI'] >= 30.0) & (df.loc[index,'BMI'] <= 100.0):
+        df.loc[index,'BMI'] = 4
+    else:
+        df.loc[index,'BMI'] = 1000
 
 ## Split the data
 X = df.drop(columns='Diabetes_binary')
