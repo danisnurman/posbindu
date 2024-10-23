@@ -39,6 +39,13 @@ for index in range(df.shape[0]):
     else:
         df.loc[index,'BMI'] = 1000
 
+df['Diabetes_binary'] = df['Diabetes_binary'].astype('int64')
+df['HighBP'] = df['HighBP'].astype('int64')
+df['HighChol'] = df['HighChol'].astype('int64')
+df['GenHlth'] = df['GenHlth'].astype('int64')
+df['DiffWalk'] = df['DiffWalk'].astype('int64')
+df['Age'] = df['Age'].astype('int64')
+
 ## Split the data
 X = df.drop(columns='Diabetes_binary')
 y = df.Diabetes_binary
