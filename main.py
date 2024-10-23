@@ -42,6 +42,7 @@ for index in range(df.shape[0]):
 df['Diabetes_binary'] = df['Diabetes_binary'].astype('int64')
 df['HighBP'] = df['HighBP'].astype('int64')
 df['HighChol'] = df['HighChol'].astype('int64')
+df['BMI'] = df['BMI'].astype('int64')
 df['GenHlth'] = df['GenHlth'].astype('int64')
 df['DiffWalk'] = df['DiffWalk'].astype('int64')
 df['Age'] = df['Age'].astype('int64')
