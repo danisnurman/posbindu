@@ -210,6 +210,7 @@ bmiStatus, bmiCat = checkBMIStatus(bmi)
 # Dont show BMI if above 100
 if(bmi<100):
     streamlit.write("IMT anda: ", bmi)
+    streamlit.write("Status IMT: ", bmiStatus)
 else:
     streamlit.write("IMT anda:")
 # // End of BMI Counting Function
