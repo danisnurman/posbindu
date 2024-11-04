@@ -80,57 +80,58 @@ streamlit.write("")
 ### GET VARIABLE INPUT FROM USER
 
 ## Age Categorization
-streamlit.write("1. Berapa usia Anda?")
-age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=1)
+streamlit.write("1. Berapa kategori usia Anda?")
+# age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=1)
+ageCat = streamlit.number_input(label="Jawaban (scale 1-14)", min_value=18, max_value=120, step=1, key=1)
 
-# Age Categorization Function
-def checkAgeCategory(age):
-    if(age>=18 and age<=24):
-        ageStatus = "(1) 18-24 tahun"
-        ageCat = 1
-    elif(age>=25 and age<=29):
-        ageStatus = "(2) 25-29 tahun"
-        ageCat = 2
-    elif(age>=30 and age<=34):
-        ageStatus = "(3) 30-34 tahun"
-        ageCat = 3
-    elif(age>=35 and age<=39):
-        ageStatus = "(4) 35-39 tahun"
-        ageCat = 4
-    elif(age>=40 and age<=44):
-        ageStatus = "(5) 40-44 tahun"
-        ageCat = 5
-    elif(age>=45 and age<=49):
-        ageStatus = "(6) 45-49 tahun"
-        ageCat = 6
-    elif(age>=50 and age<=54):
-        ageStatus = "(7) 50-54 tahun"
-        ageCat = 7
-    elif(age>=55 and age<=59):
-        ageStatus = "(8) 55-59 tahun"
-        ageCat = 8
-    elif(age>=60 and age<=64):
-        ageStatus = "(9) 60-64 tahun"
-        ageCat = 9
-    elif(age>=65 and age<=69):
-        ageStatus = "(10) 65-69 tahun"
-        ageCat = 10
-    elif(age>=70 and age<=74):
-        ageStatus = "(11) 70-74 tahun"
-        ageCat = 11
-    elif(age>=75 and age<=79):
-        ageStatus = "(12) 75-79 tahun"
-        ageCat = 12
-    elif(age>=80 and age<=120):
-        ageStatus = "(13) 80 tahun atau lebih"
-        ageCat = 13
-    else:
-        ageStatus = "(14) Tidak tahu/menolak untuk menjawab"
-        ageCat = 0
-    return ageStatus, ageCat
+## Age Categorization Function
+# def checkAgeCategory(age):
+#     if(age>=18 and age<=24):
+#         ageStatus = "(1) 18-24 tahun"
+#         ageCat = 1
+#     elif(age>=25 and age<=29):
+#         ageStatus = "(2) 25-29 tahun"
+#         ageCat = 2
+#     elif(age>=30 and age<=34):
+#         ageStatus = "(3) 30-34 tahun"
+#         ageCat = 3
+#     elif(age>=35 and age<=39):
+#         ageStatus = "(4) 35-39 tahun"
+#         ageCat = 4
+#     elif(age>=40 and age<=44):
+#         ageStatus = "(5) 40-44 tahun"
+#         ageCat = 5
+#     elif(age>=45 and age<=49):
+#         ageStatus = "(6) 45-49 tahun"
+#         ageCat = 6
+#     elif(age>=50 and age<=54):
+#         ageStatus = "(7) 50-54 tahun"
+#         ageCat = 7
+#     elif(age>=55 and age<=59):
+#         ageStatus = "(8) 55-59 tahun"
+#         ageCat = 8
+#     elif(age>=60 and age<=64):
+#         ageStatus = "(9) 60-64 tahun"
+#         ageCat = 9
+#     elif(age>=65 and age<=69):
+#         ageStatus = "(10) 65-69 tahun"
+#         ageCat = 10
+#     elif(age>=70 and age<=74):
+#         ageStatus = "(11) 70-74 tahun"
+#         ageCat = 11
+#     elif(age>=75 and age<=79):
+#         ageStatus = "(12) 75-79 tahun"
+#         ageCat = 12
+#     elif(age>=80 and age<=120):
+#         ageStatus = "(13) 80 tahun atau lebih"
+#         ageCat = 13
+#     else:
+#         ageStatus = "(14) Tidak tahu/menolak untuk menjawab"
+#         ageCat = 0
+#     return ageStatus, ageCat
 #
+# ageStatus, ageCat = checkAgeCategory(age)
 
-ageStatus, ageCat = checkAgeCategory(age)
 streamlit.write("Kategori Usia: ", ageCat)
 ## End of Age Categorization
 
