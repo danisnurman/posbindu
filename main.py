@@ -175,7 +175,7 @@ streamlit.write("")
 ### BMI
 # User Input
 streamlit.write("5. Apa status Indeks Massa Tubuh (IMT) Anda berdasarkan pemeriksaan oleh petugas Posbindu?")
-bmiCat = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=5)
+bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=5)
 
 ## // BMI Counting Function
 # weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=51)
@@ -216,25 +216,25 @@ bmiCat = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2
 # // End of BMI Counting Function
 
 # // BMI Category Function
-# def checkBMIStatus(bmi):
-#     if(bmi==1):
-#         bmiStatus = "Berat badan kurang"
-#         bmiCat = 1
-#     elif(bmi==2):
-#         bmiStatus = "Normal"
-#         bmiCat = 2
-#     elif(bmi==3):
-#         bmiStatus = "Kegemukan"
-#         bmiCat = 3
-#     elif(bmi==4):
-#         bmiStatus = "Obesitas"
-#         bmiCat = 4
-#     else:
-#         bmiStatus = ""
-#         bmiCat = 0
-#     return bmiStatus, bmiCat
-# bmiStatus, bmiCat = checkBMIStatus(bmiCategory)
-# streamlit.write("Kategori IMT: ", bmiStatus)
+def checkBMIStatus(bmi):
+    if(bmi==1):
+        bmiStatus = "Berat badan kurang"
+        bmiCat = 1
+    elif(bmi==2):
+        bmiStatus = "Normal"
+        bmiCat = 2
+    elif(bmi==3):
+        bmiStatus = "Kegemukan"
+        bmiCat = 3
+    elif(bmi==4):
+        bmiStatus = "Obesitas"
+        bmiCat = 4
+    else:
+        bmiStatus = ""
+        bmiCat = 0
+    return bmiStatus, bmiCat
+bmiStatus, bmiCat = checkBMIStatus(bmiCategory)
+streamlit.write("Kategori IMT: ", bmiStatus)
 # // End of BMI Category Function
 # streamlit.write("BMI category: ", bmiCat)
 ### End of BMI
@@ -250,7 +250,7 @@ streamlit.write("")
 ### End of GET VARIABLE INPUT FROM USER
 
 ## POST Data
-dataFromUser = [[ageCat, generalHealth, bloodPressure, cholCat, bmiCat, difficultyWalk]]
+dataFromUser = [[ageCat, generalHealth, bloodPressure, cholCat, bmiCategory, difficultyWalk]]
 # streamlit.write(dataFromUser)
 
 ## Predict New Data
