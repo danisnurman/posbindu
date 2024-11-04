@@ -82,7 +82,7 @@ streamlit.write("")
 ## Age Categorization
 streamlit.write("1. Berapa kategori usia Anda?")
 # age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=1)
-ageCat = streamlit.number_input(label="Jawaban (scale 1-14)", min_value=18, max_value=120, step=1, key=1)
+ageCat = streamlit.number_input(label="Jawaban (scale 1-14)", min_value=1, max_value=14, step=1, key=1)
 
 ## Age Categorization Function
 # def checkAgeCategory(age):
