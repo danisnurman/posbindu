@@ -174,7 +174,7 @@ def checkCholStatus(cholCat):
     else:
         cholStatus = "ERROR!"
     return cholStatus
-cholStatus, cholCat = checkCholStatus(cholCat)
+cholStatus = checkCholStatus(cholCat)
 streamlit.write("Status kolesterol: ", cholStatus)
 
 # # Chol Status Function
