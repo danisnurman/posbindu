@@ -22,7 +22,8 @@ df = pandas.read_csv('https://raw.githubusercontent.com/danisnurman/psbnd2/main/
 #
 
 ## Feature Cols
-mrmr_features = ['Diabetes_binary', 'Age', 'GenHlth', 'HighBP', 'HighChol', 'BMI', 'DiffWalk']
+# mrmr_features = ['Diabetes_binary', 'Age', 'GenHlth', 'HighBP', 'HighChol', 'BMI', 'DiffWalk']
+mrmr_features = ['Diabetes_binary', 'GenHlth', 'HighBP', 'BMI', 'HighChol', 'Age', 'DiffWalk']
 df = df[mrmr_features]
 ##
 
@@ -40,12 +41,12 @@ for index in range(df.shape[0]):
         df.loc[index,'BMI'] = 1000
 
 df['Diabetes_binary'] = df['Diabetes_binary'].astype('int64')
-df['HighBP'] = df['HighBP'].astype('int64')
-df['HighChol'] = df['HighChol'].astype('int64')
-df['BMI'] = df['BMI'].astype('int64')
 df['GenHlth'] = df['GenHlth'].astype('int64')
-df['DiffWalk'] = df['DiffWalk'].astype('int64')
+df['HighBP'] = df['HighBP'].astype('int64')
+df['BMI'] = df['BMI'].astype('int64')
+df['HighChol'] = df['HighChol'].astype('int64')
 df['Age'] = df['Age'].astype('int64')
+df['DiffWalk'] = df['DiffWalk'].astype('int64')
 
 ## Split the data
 X = df.drop(columns='Diabetes_binary')
@@ -79,108 +80,28 @@ streamlit.write("")
 
 ### GET VARIABLE INPUT FROM USER
 
-## Age Categorization
-streamlit.write("1. Berapa kategori usia Anda?")
-# age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=1)
-ageCat = streamlit.number_input(label="Jawaban (scale 1-14)", min_value=1, max_value=14, step=1, key=1)
-
-## Age Categorization Function
-# def checkAgeCategory(age):
-#     if(age>=18 and age<=24):
-#         ageStatus = "(1) 18-24 tahun"
-#         ageCat = 1
-#     elif(age>=25 and age<=29):
-#         ageStatus = "(2) 25-29 tahun"
-#         ageCat = 2
-#     elif(age>=30 and age<=34):
-#         ageStatus = "(3) 30-34 tahun"
-#         ageCat = 3
-#     elif(age>=35 and age<=39):
-#         ageStatus = "(4) 35-39 tahun"
-#         ageCat = 4
-#     elif(age>=40 and age<=44):
-#         ageStatus = "(5) 40-44 tahun"
-#         ageCat = 5
-#     elif(age>=45 and age<=49):
-#         ageStatus = "(6) 45-49 tahun"
-#         ageCat = 6
-#     elif(age>=50 and age<=54):
-#         ageStatus = "(7) 50-54 tahun"
-#         ageCat = 7
-#     elif(age>=55 and age<=59):
-#         ageStatus = "(8) 55-59 tahun"
-#         ageCat = 8
-#     elif(age>=60 and age<=64):
-#         ageStatus = "(9) 60-64 tahun"
-#         ageCat = 9
-#     elif(age>=65 and age<=69):
-#         ageStatus = "(10) 65-69 tahun"
-#         ageCat = 10
-#     elif(age>=70 and age<=74):
-#         ageStatus = "(11) 70-74 tahun"
-#         ageCat = 11
-#     elif(age>=75 and age<=79):
-#         ageStatus = "(12) 75-79 tahun"
-#         ageCat = 12
-#     elif(age>=80 and age<=120):
-#         ageStatus = "(13) 80 tahun atau lebih"
-#         ageCat = 13
-#     else:
-#         ageStatus = "(14) Tidak tahu/menolak untuk menjawab"
-#         ageCat = 0
-#     return ageStatus, ageCat
-#
-# ageStatus, ageCat = checkAgeCategory(age)
-
-streamlit.write("Kategori Usia: ", ageCat)
-## End of Age Categorization
-
-streamlit.write("")
-
 ## General Health Scale
-streamlit.write("2. Bagaimana kondisi kesehatan Anda secara umum?")
-generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=2)
+streamlit.write("1. Bagaimana kondisi kesehatan Anda secara umum?")
+generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=1)
 ## General Health Scale
 
 streamlit.write("")
 
 ## High Blood Pressure
-streamlit.write("3. Apakah Anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
-bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=3)
+streamlit.write("2. Apakah Anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
+bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=2)
 ## End of High Blood Pressure
-
-streamlit.write("")
-
-## High Chol
-streamlit.write("4. Apakah Anda dinyatakan mengalami kolesterol tinggi oleh petugas Posbindu?")
-cholCat = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=4)
-
-# # Chol Status Function
-# def checkCholStatus(cholesterol):
-#     if(cholesterol>=50.0 and cholesterol<=200):
-#         cholStatus = "Normal"
-#         cholCat = 0
-#     else:
-#         cholStatus = "Tinggi"
-#         cholCat = 1
-#     return cholStatus, cholCat
-# #
-
-# cholStatus, cholCat = checkCholStatus(cholesterol)
-# streamlit.write("Status kolesterol: ", cholStatus)
-# streamlit.write("Kategori kolesterol: ", cholCat)
-## End of High Chol
 
 streamlit.write("")
 
 ### BMI
 # User Input
-streamlit.write("5. Apa status Indeks Massa Tubuh (IMT) Anda berdasarkan pemeriksaan oleh petugas Posbindu?")
-bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=5)
+streamlit.write("3. Apa status Indeks Massa Tubuh (IMT) Anda berdasarkan pemeriksaan oleh petugas Posbindu?")
+bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kurang, 2 = Normal, 3 = Kegemukan, 4 = Obesitas)", min_value=1, max_value=4, key=3)
 
 ## // BMI Counting Function
-# weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=51)
-# height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=52)
+# weight = streamlit.number_input(label="Mohon masukkan hasil pengukuran berat badan (dalam kg)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=31)
+# height = streamlit.number_input(label="Mohon masukkan hasil pengukuran tinggi badan (dalam cm)", min_value=10.0, max_value=200.0, step=.1, format="%0.1f", key=32)
 # bmi = weight / ((height/100)*(height/100))
 # bmi = round(bmi, 1)
 #
@@ -239,6 +160,96 @@ streamlit.write("Kategori IMT: ", bmiStatus)
 # // End of BMI Category Function
 # streamlit.write("BMI category: ", bmiCat)
 ### End of BMI
+
+streamlit.write("")
+
+## High Chol
+streamlit.write("4. Apakah Anda dinyatakan mengalami kolesterol tinggi oleh petugas Posbindu?")
+cholCat = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=4)
+def checkCholStatus(cholCat):
+    if (cholCat == 0):
+        cholStatus = "Normal"
+    elif (cholCat == 1):
+        cholStatus = "Tinggi"
+    else:
+        cholStatus = "ERROR!"
+    return cholStatus
+cholStatus, cholCat = checkCholStatus(cholCat)
+streamlit.write("Status kolesterol: ", cholStatus)
+
+# # Chol Status Function
+# def checkCholStatus(cholesterol):
+#     if(cholesterol>=50.0 and cholesterol<=200):
+#         cholStatus = "Normal"
+#         cholCat = 0
+#     else:
+#         cholStatus = "Tinggi"
+#         cholCat = 1
+#     return cholStatus, cholCat
+# #
+
+# cholStatus, cholCat = checkCholStatus(cholesterol)
+# streamlit.write("Status kolesterol: ", cholStatus)
+# streamlit.write("Kategori kolesterol: ", cholCat)
+## End of High Chol
+
+streamlit.write("")
+
+## Age Categorization
+streamlit.write("5. Berapa kategori usia Anda?")
+# age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=5)
+ageCat = streamlit.number_input(label="Jawaban (scale 1-14)", min_value=1, max_value=14, step=1, key=5)
+
+## Age Categorization Function
+# def checkAgeCategory(age):
+#     if(age>=18 and age<=24):
+#         ageStatus = "(1) 18-24 tahun"
+#         ageCat = 1
+#     elif(age>=25 and age<=29):
+#         ageStatus = "(2) 25-29 tahun"
+#         ageCat = 2
+#     elif(age>=30 and age<=34):
+#         ageStatus = "(3) 30-34 tahun"
+#         ageCat = 3
+#     elif(age>=35 and age<=39):
+#         ageStatus = "(4) 35-39 tahun"
+#         ageCat = 4
+#     elif(age>=40 and age<=44):
+#         ageStatus = "(5) 40-44 tahun"
+#         ageCat = 5
+#     elif(age>=45 and age<=49):
+#         ageStatus = "(6) 45-49 tahun"
+#         ageCat = 6
+#     elif(age>=50 and age<=54):
+#         ageStatus = "(7) 50-54 tahun"
+#         ageCat = 7
+#     elif(age>=55 and age<=59):
+#         ageStatus = "(8) 55-59 tahun"
+#         ageCat = 8
+#     elif(age>=60 and age<=64):
+#         ageStatus = "(9) 60-64 tahun"
+#         ageCat = 9
+#     elif(age>=65 and age<=69):
+#         ageStatus = "(10) 65-69 tahun"
+#         ageCat = 10
+#     elif(age>=70 and age<=74):
+#         ageStatus = "(11) 70-74 tahun"
+#         ageCat = 11
+#     elif(age>=75 and age<=79):
+#         ageStatus = "(12) 75-79 tahun"
+#         ageCat = 12
+#     elif(age>=80 and age<=120):
+#         ageStatus = "(13) 80 tahun atau lebih"
+#         ageCat = 13
+#     else:
+#         ageStatus = "(14) Tidak tahu/menolak untuk menjawab"
+#         ageCat = 0
+#     return ageStatus, ageCat
+#
+# ageStatus, ageCat = checkAgeCategory(age)
+
+streamlit.write("Kategori Usia: ", ageCat)
+## End of Age Categorization
 
 streamlit.write("")
 
