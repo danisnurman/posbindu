@@ -84,21 +84,21 @@ streamlit.write("")
 streamlit.write("1. Bagaimana kondisi kesehatan Anda secara umum?")
 generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=1)
 def showGenHlthStatus(generalHealth):
-    if (generalHealth == 1):
+    if(generalHealth == 1):
         genHlthStatus = "Luar Biasa"
-    elif (generalHealth == 2):
+    elif(generalHealth == 2):
         genHlthStatus = "Sangat Baik"
-    elif (generalHealth == 3):
+    elif(generalHealth == 3):
         genHlthStatus = "Baik"
-    elif (generalHealth == 4):
+    elif(generalHealth == 4):
         genHlthStatus = "Cukup"
-    elif (generalHealth == 5):
+    elif(generalHealth == 5):
         genHlthStatus = "Buruk"
     else:
         genHlthStatus = "ERROR!"
     return genHlthStatus
 genHlthStatus = showGenHlthStatus(generalHealth)
-streamlit.write("Status tekanan darah: ", genHlthStatus)
+streamlit.write("Kondisi kesehatan: ", genHlthStatus)
 ## General Health Scale
 
 streamlit.write("")
@@ -107,10 +107,10 @@ streamlit.write("")
 streamlit.write("2. Apakah Anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
 bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=2)
 def showBPStatus(bloodPressure):
-    if (bloodPressure == 0):
-        bpStatus = "Tidak"
-    elif (bloodPressure == 1):
-        bpStatus = "Ya"
+    if(bloodPressure == 0):
+        bpStatus = "Normal"
+    elif(bloodPressure == 1):
+        bpStatus = "Tinggi"
     else:
         bpStatus = "ERROR!"
     return bpStatus
@@ -163,28 +163,22 @@ bmiCategory = streamlit.number_input(label="Jawaban (skala: 1 = Berat badan kura
 #     streamlit.write("IMT anda:")
 # // End of BMI Counting Function
 
-# // BMI Category Function
+## BMI Category Function
 def checkBMIStatus(bmi):
-    if(bmi==1):
+    if(bmi == 1):
         bmiStatus = "Berat badan kurang"
-        bmiCat = 1
-    elif(bmi==2):
+    elif(bmi == 2):
         bmiStatus = "Normal"
-        bmiCat = 2
-    elif(bmi==3):
+    elif(bmi == 3):
         bmiStatus = "Kegemukan"
-        bmiCat = 3
-    elif(bmi==4):
+    elif(bmi == 4):
         bmiStatus = "Obesitas"
-        bmiCat = 4
     else:
-        bmiStatus = ""
-        bmiCat = 0
-    return bmiStatus, bmiCat
-bmiStatus, bmiCat = checkBMIStatus(bmiCategory)
+        bmiStatus = "ERROR!"
+    return bmiStatus
+bmiStatus = checkBMIStatus(bmiCategory)
 streamlit.write("Kategori IMT: ", bmiStatus)
-# // End of BMI Category Function
-# streamlit.write("BMI category: ", bmiCat)
+## End of BMI Category Function
 ### End of BMI
 
 streamlit.write("")
@@ -256,7 +250,7 @@ def showAgeCategory(ageCat):
         ageCategory = "(14) Tidak tahu/menolak untuk menjawab"
     return ageCategory
 ageCategory = showAgeCategory(ageCat)
-streamlit.write("Kategori Usia: ", ageCategory)
+streamlit.write("Kategori usia: ", ageCategory)
 ## End of Age Categorization
 
 streamlit.write("")
@@ -265,22 +259,22 @@ streamlit.write("")
 streamlit.write("6. Apakah anda mengalami kesulitan berjalan atau menaiki tangga")
 difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=6)
 def showDiffWalkStatus(difficultyWalk):
-    if (difficultyWalk == 0):
+    if(difficultyWalk == 0):
         diffWalkStatus = "Tidak"
-    elif (difficultyWalk == 1):
+    elif(difficultyWalk == 1):
         diffWalkStatus = "Ya"
     else:
         diffWalkStatus = "ERROR!"
     return diffWalkStatus
 diffWalkStatus = showCholStatus(difficultyWalk)
-streamlit.write("Status kolesterol: ", diffWalkStatus)
+streamlit.write("Kesulitan berjalan: ", diffWalkStatus)
 ## End of Difficulty Walk
 
 streamlit.write("")
 ### End of GET VARIABLE INPUT FROM USER
 
 ## POST Data
-dataFromUser = [[ageCat, generalHealth, bloodPressure, cholCat, bmiCategory, difficultyWalk]]
+dataFromUser = [[generalHealth, bloodPressure, bmiCategory, cholCat, ageCat, difficultyWalk]]
 # streamlit.write(dataFromUser)
 
 ## Predict New Data
