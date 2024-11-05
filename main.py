@@ -83,6 +83,22 @@ streamlit.write("")
 ## General Health Scale
 streamlit.write("1. Bagaimana kondisi kesehatan Anda secara umum?")
 generalHealth = streamlit.number_input(label="Jawaban (skala: 1 = luar biasa, 2 = sangat baik, 3 = baik, 4 = cukup, 5 = buruk)", min_value=1, max_value=5, key=1)
+def showGenHlthStatus(generalHealth):
+    if (generalHealth == 1):
+        genHlthStatus = "Luar Biasa"
+    elif (generalHealth == 2):
+        genHlthStatus = "Sangat Baik"
+    elif (generalHealth == 3):
+        genHlthStatus = "Baik"
+    elif (generalHealth == 4):
+        genHlthStatus = "Cukup"
+    elif (generalHealth == 5):
+        genHlthStatus = "Buruk"
+    else:
+        genHlthStatus = "ERROR!"
+    return genHlthStatus
+genHlthStatus = showGenHlthStatus(generalHealth)
+streamlit.write("Status tekanan darah: ", genHlthStatus)
 ## General Health Scale
 
 streamlit.write("")
@@ -90,6 +106,16 @@ streamlit.write("")
 ## High Blood Pressure
 streamlit.write("2. Apakah Anda dinyatakan mengalami tekanan darah tinggi oleh petugas Posbindu?")
 bloodPressure = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=2)
+def showBPStatus(bloodPressure):
+    if (bloodPressure == 0):
+        bpStatus = "Tidak"
+    elif (bloodPressure == 1):
+        bpStatus = "Ya"
+    else:
+        bpStatus = "ERROR!"
+    return bpStatus
+bpStatus = showBPStatus(bloodPressure)
+streamlit.write("Status tekanan darah: ", bpStatus)
 ## End of High Blood Pressure
 
 streamlit.write("")
@@ -166,7 +192,7 @@ streamlit.write("")
 ## High Chol
 streamlit.write("4. Apakah Anda dinyatakan mengalami kolesterol tinggi oleh petugas Posbindu?")
 cholCat = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=4)
-def checkCholStatus(cholCat):
+def showCholStatus(cholCat):
     if (cholCat == 0):
         cholStatus = "Normal"
     elif (cholCat == 1):
@@ -174,7 +200,7 @@ def checkCholStatus(cholCat):
     else:
         cholStatus = "ERROR!"
     return cholStatus
-cholStatus = checkCholStatus(cholCat)
+cholStatus = showCholStatus(cholCat)
 streamlit.write("Status kolesterol: ", cholStatus)
 
 # # Chol Status Function
@@ -199,56 +225,38 @@ streamlit.write("")
 streamlit.write("5. Berapa kategori usia Anda?")
 # age = streamlit.number_input(label="Jawaban (scale 18-120)", min_value=18, max_value=120, step=1, key=5)
 ageCat = streamlit.number_input(label="Jawaban (scale 1-14)", min_value=1, max_value=14, step=1, key=5)
-
-## Age Categorization Function
-# def checkAgeCategory(age):
-#     if(age>=18 and age<=24):
-#         ageStatus = "(1) 18-24 tahun"
-#         ageCat = 1
-#     elif(age>=25 and age<=29):
-#         ageStatus = "(2) 25-29 tahun"
-#         ageCat = 2
-#     elif(age>=30 and age<=34):
-#         ageStatus = "(3) 30-34 tahun"
-#         ageCat = 3
-#     elif(age>=35 and age<=39):
-#         ageStatus = "(4) 35-39 tahun"
-#         ageCat = 4
-#     elif(age>=40 and age<=44):
-#         ageStatus = "(5) 40-44 tahun"
-#         ageCat = 5
-#     elif(age>=45 and age<=49):
-#         ageStatus = "(6) 45-49 tahun"
-#         ageCat = 6
-#     elif(age>=50 and age<=54):
-#         ageStatus = "(7) 50-54 tahun"
-#         ageCat = 7
-#     elif(age>=55 and age<=59):
-#         ageStatus = "(8) 55-59 tahun"
-#         ageCat = 8
-#     elif(age>=60 and age<=64):
-#         ageStatus = "(9) 60-64 tahun"
-#         ageCat = 9
-#     elif(age>=65 and age<=69):
-#         ageStatus = "(10) 65-69 tahun"
-#         ageCat = 10
-#     elif(age>=70 and age<=74):
-#         ageStatus = "(11) 70-74 tahun"
-#         ageCat = 11
-#     elif(age>=75 and age<=79):
-#         ageStatus = "(12) 75-79 tahun"
-#         ageCat = 12
-#     elif(age>=80 and age<=120):
-#         ageStatus = "(13) 80 tahun atau lebih"
-#         ageCat = 13
-#     else:
-#         ageStatus = "(14) Tidak tahu/menolak untuk menjawab"
-#         ageCat = 0
-#     return ageStatus, ageCat
-#
-# ageStatus, ageCat = checkAgeCategory(age)
-
-streamlit.write("Kategori Usia: ", ageCat)
+def showAgeCategory(ageCat):
+    if(ageCat == 1):
+        ageCategory = "(1) 18-24 tahun"
+    elif(ageCat == 2):
+        ageCategory = "(2) 25-29 tahun"
+    elif(ageCat == 3):
+        ageCategory = "(3) 30-34 tahun"
+    elif(ageCat == 4):
+        ageCategory = "(4) 35-39 tahun"
+    elif(ageCat == 5):
+        ageCategory = "(5) 40-44 tahun"
+    elif(ageCat == 6):
+        ageCategory = "(6) 45-49 tahun"
+    elif(ageCat == 7):
+        ageCategory = "(7) 50-54 tahun"
+    elif(ageCat == 8):
+        ageCategory = "(8) 55-59 tahun"
+    elif(ageCat == 9):
+        ageCategory = "(9) 60-64 tahun"
+    elif(ageCat == 10):
+        ageCategory = "(10) 65-69 tahun"
+    elif(ageCat == 11):
+        ageCategory = "(11) 70-74 tahun"
+    elif(ageCat == 12):
+        ageCategory = "(12) 75-79 tahun"
+    elif(ageCat == 13):
+        ageCategory = "(13) 80 tahun atau lebih"
+    else:
+        ageCategory = "(14) Tidak tahu/menolak untuk menjawab"
+    return ageCategory
+ageCategory = showAgeCategory(ageCat)
+streamlit.write("Kategori Usia: ", ageCategory)
 ## End of Age Categorization
 
 streamlit.write("")
@@ -256,6 +264,16 @@ streamlit.write("")
 ## Difficulty Walk
 streamlit.write("6. Apakah anda mengalami kesulitan berjalan atau menaiki tangga")
 difficultyWalk = streamlit.number_input(label="Jawaban (0=tidak, 1=ya)", min_value=0, max_value=1, key=6)
+def showDiffWalkStatus(difficultyWalk):
+    if (difficultyWalk == 0):
+        diffWalkStatus = "Tidak"
+    elif (difficultyWalk == 1):
+        diffWalkStatus = "Ya"
+    else:
+        diffWalkStatus = "ERROR!"
+    return diffWalkStatus
+diffWalkStatus = showCholStatus(difficultyWalk)
+streamlit.write("Status kolesterol: ", diffWalkStatus)
 ## End of Difficulty Walk
 
 streamlit.write("")
