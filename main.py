@@ -266,7 +266,7 @@ def showDiffWalkStatus(difficultyWalk):
     else:
         diffWalkStatus = "ERROR!"
     return diffWalkStatus
-diffWalkStatus = showCholStatus(difficultyWalk)
+diffWalkStatus = showDiffWalkStatus(difficultyWalk)
 streamlit.write("Kesulitan berjalan: ", diffWalkStatus)
 ## End of Difficulty Walk
 
